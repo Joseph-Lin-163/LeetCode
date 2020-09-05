@@ -6,25 +6,27 @@
 #         self.right = right
 class Solution:
     def getAllElements(self, root1: TreeNode, root2: TreeNode) -> List[int]:
-        d = {}
-        q = []
-        if root1:
-            q.append(root1)
-        while q:
-            d[q[0].val] = d.get(q[0].val, 0) + 1
-            if q[0].left:
-                q.append(q[0].left)
-            if q[0].right:
-                q.append(q[0].right)
-            q.pop(0)
-        if root2:
-            q.append(root2)
-        while q:
-            d[q[0].val] = d.get(q[0].val, 0) + 1
-            if q[0].left:
-                q.append(q[0].left)
-            if q[0].right:
-                q.append(q[0].right)
-            q.pop(0)
+        list1=deque([])
+        list2=deque([])
 
-        return [x for x in sorted(d) for y in range(d[x])]
+        def dfs_nr(node, l):
+            stack = deque([node])
+            while stack:
+                if stack[-1].left:
+                    stack.append(stack[-1].left)
+                    continue
+                tmp = stack.pop()
+                if stack:
+                    stack[-1].left = None
+                l.append(tmp.val)
+                if tmp.right:
+                    stack.append(tmp.right)
+
+        if root1:
+            dfs_nr(root1, list1)
+
+        if root2:
+            dfs_nr(root2, list2)
+
+        list1.extend(list2)
+        return sorted(list1)
