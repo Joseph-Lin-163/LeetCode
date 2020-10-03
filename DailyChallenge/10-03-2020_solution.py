@@ -21,3 +21,18 @@ class Solution:
                 j += 1
                 continue
         return s
+
+        # alternative implementation
+        # d = collections.Counter(nums)
+        # # return len([True for n in d if d[n]!=1]) if k == 0 else len([True for n in d if n-k in d])
+        # count = 0
+        # def inc():
+        #     nonlocal count
+        #     count += 1
+        #
+        # if k == 0:
+        #     [inc() for n in d if d[n] != 1]
+        # else:
+        #     [inc() for n in d if n-k in d]
+        #
+        # return count
